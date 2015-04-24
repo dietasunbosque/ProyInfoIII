@@ -110,7 +110,8 @@ public class UsuarioMB implements Serializable {
 		return user;
 	}
 
-	public void eliminar(Usuario user) {
+	public void eliminar(Usuario user,String estado) {
+		user.setEstado(estado);
 		getUsuarioService().deleteUser(user);
 	}
 

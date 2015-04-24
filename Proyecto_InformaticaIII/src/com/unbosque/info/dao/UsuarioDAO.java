@@ -48,8 +48,6 @@ public class UsuarioDAO {
 	}
 
 	public void deleteUser (Usuario user){
-		user.setEstado("I");
-		System.out.println(user.toString());
 		getSessionFactory().getCurrentSession().update(user);
 	}
 

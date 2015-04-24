@@ -27,6 +27,8 @@ public class UsuarioService{
 	public Usuario getUserLogin(String usuario){
 		return getUsuarioDAO().getUserLogin(usuario);
 	}
+	
+	@Transactional(readOnly = false)
 	public void deleteUser (Usuario user){
 		getUsuarioDAO().deleteUser(user);
 	}

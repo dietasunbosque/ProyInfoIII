@@ -18,10 +18,13 @@
 			<p:submenu label="Usuarios" icon="ui-icon-check">
 				<p:column>
 					<p:submenu label="Gestión de Usuarios">
-						<p:menuitem action="AgregarUsuario?faces-redirect=true" ajax="flase" value="Nuevo" />
-						<p:menuitem action="ModificarUsuario?faces-redirect=true" ajax="flase" value="Modificar"/>
-						<p:menuitem action="EliminarUsuario?faces-redirect=true" ajax="flase" value="Eliminar"/>
-						<p:menuitem value="Ver"/>
+						<p:menuitem action="AgregarUsuario?faces-redirect=true"
+							ajax="flase" value="Nuevo" />
+						<p:menuitem action="ModificarUsuario?faces-redirect=true"
+							ajax="flase" value="Modificar" />
+						<p:menuitem action="EliminarUsuario?faces-redirect=true"
+							ajax="flase" value="Eliminar" />
+						<p:menuitem value="Ver" />
 					</p:submenu>
 				</p:column>
 			</p:submenu>
@@ -30,7 +33,8 @@
 
 				<p:column>
 					<p:submenu label="Gestión de Dietas">
-						<p:menuitem action="AgregarDieta?faces-redirect=true" ajax="flase" value="Nuevo"/>
+						<p:menuitem action="AgregarDieta?faces-redirect=true" ajax="flase"
+							value="Nuevo" />
 						<p:menuitem value="Modificar" url="#" />
 						<p:menuitem value="Eliminar" url="#" />
 						<p:menuitem value="Ver" url="#" />
@@ -56,34 +60,36 @@
 				</p:column>
 			</p:submenu>
 
-			<p:menuitem action="index?faces-redirect=true" ajax="flase"  value="Salir"  icon="ui-icon-close"/>
+			<p:menuitem action="index?faces-redirect=true" ajax="flase"
+				value="Salir" icon="ui-icon-close" />
 
 		</p:megaMenu>
 	</h:form>
 	<!-- TABLA DE USUARIOS -->
 	<p:dataTable id="usuario" var="_usuario" style="text-align:centre"
 		height="10px" width="auto" value="#{usuarioMB.getUsers()}">
+		
 		<p:column width="15" headerText="Id">
 			<h:outputText value="#{_usuario.id}" />
 		</p:column>
 
-		<p:column width="80" headerText="Apellidos - Nombres">
+		<p:column width="210" headerText="Apellidos - Nombres">
 			<h:outputText value="#{_usuario.apellidosNombres}" />
 		</p:column>
 
-		<p:column headerText="Usuario">
+		<p:column width = "80" headerText="Usuario">
 			<h:outputText value="#{_usuario.login}" />
 		</p:column>
 
-		<p:column width="50" headerText="Estado">
+		<p:column width="50" headerText="Est">
 			<h:outputText value="#{_usuario.estado}" />
 		</p:column>
 
-		<p:column headerText="Tipo Usuario">
+		<p:column width = "50" headerText="Tp.U">
 			<h:outputText value="#{_usuario.tipoUsuario}" />
 		</p:column>
 
-		<p:column headerText="Pass">
+		<p:column width="120" headerText="Pass">
 			<h:outputText value="#{_usuario.password}" />
 		</p:column>
 
@@ -92,14 +98,34 @@
 		</p:column>
 
 		<p:column headerText="Fecha Clave">
-			<h:outputText value = "#{_usuario.fechaClave}"/>
+			<h:outputText value="#{_usuario.fechaClave}" />
 		</p:column>
-		
-		<p:column headerText="Email">
-			<h:outputText value="#{_usuario.correo}" />	
+
+		<p:column width = "120" headerText="Email">
+			<h:outputText value="#{_usuario.correo}" />
 		</p:column>
-		<p:column headerText="Eliminar">
-			<p:commandLink value = "Eliminar" actionListener = "#{usuarioMB.eliminar(_usuario)}"/>	
+		<p:column headerText="Opciones">
+			<p:commandButton actionListener="#{usuarioMB.eliminar(_usuario,'I')}"
+				icon="ui-icon-trash" update="usuario">
+				<p:confirm header="Confirmación de Cambio de estado"
+					message="¿Esta seguro que desea Inactivar el Usuario?"
+					icon="ui-icon-alert" />
+			</p:commandButton>
+			<p:commandButton actionListener="#{usuarioMB.eliminar(_usuario,'I')}"
+				icon="ui-icon-pencil" update="usuario">
+			</p:commandButton>
+			<p:commandButton actionListener="#{usuarioMB.eliminar(_usuario,'A')}"
+				icon="ui-icon-unlocked" update="usuario">
+				<p:confirm header="Confirmación de Cambio de estado"
+					message="¿Esta seguro que desea Activar el Usuario?"
+					icon="ui-icon-alert" />
+			</p:commandButton>
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				<p:commandButton value="Si" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
 		</p:column>
 	</p:dataTable>
 
