@@ -1,0 +1,107 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>DIETAS - Ver Usuarios</title>
+</h:head>
+
+<h:body>
+	<h:form>
+		<p:megaMenu orientation="#{megaMenuView.orientation}"
+			style="margin-top:20px">
+			<p:submenu label="Usuarios" icon="ui-icon-check">
+				<p:column>
+					<p:submenu label="Gestión de Usuarios">
+						<p:menuitem action="AgregarUsuario?faces-redirect=true" ajax="flase" value="Nuevo" />
+						<p:menuitem action="ModificarUsuario?faces-redirect=true" ajax="flase" value="Modificar"/>
+						<p:menuitem action="EliminarUsuario?faces-redirect=true" ajax="flase" value="Eliminar"/>
+						<p:menuitem value="Ver"/>
+					</p:submenu>
+				</p:column>
+			</p:submenu>
+
+			<p:submenu label="Dietas" icon="ui-icon-document">
+
+				<p:column>
+					<p:submenu label="Gestión de Dietas">
+						<p:menuitem action="AgregarDieta?faces-redirect=true" ajax="flase" value="Nuevo"/>
+						<p:menuitem value="Modificar" url="#" />
+						<p:menuitem value="Eliminar" url="#" />
+						<p:menuitem value="Ver" url="#" />
+					</p:submenu>
+				</p:column>
+			</p:submenu>
+
+			<p:submenu label="Reportes" icon="ui-icon-contact">
+
+				<p:column>
+					<p:submenu label="Reportes de Sistema">
+						<p:menuitem value="Ver" url="#" />
+					</p:submenu>
+				</p:column>
+			</p:submenu>
+
+			<p:submenu label="¿Ayuda?" icon="ui-icon-help">
+
+				<p:column>
+					<p:submenu label="Ayuda al Administrador">
+						<p:menuitem value="Soporte Técnico" url="#" />
+					</p:submenu>
+				</p:column>
+			</p:submenu>
+
+			<p:menuitem action="index?faces-redirect=true" ajax="flase"  value="Salir"  icon="ui-icon-close"/>
+
+		</p:megaMenu>
+	</h:form>
+	<!-- TABLA DE USUARIOS -->
+	<p:dataTable id="usuario" var="_usuario" style="text-align:centre"
+		height="10px" width="auto" value="#{usuarioMB.getUsers()}">
+		<p:column width="15" headerText="Id">
+			<h:outputText value="#{_usuario.id}" />
+		</p:column>
+
+		<p:column width="80" headerText="Apellidos - Nombres">
+			<h:outputText value="#{_usuario.apellidosNombres}" />
+		</p:column>
+
+		<p:column headerText="Usuario">
+			<h:outputText value="#{_usuario.login}" />
+		</p:column>
+
+		<p:column width="50" headerText="Estado">
+			<h:outputText value="#{_usuario.estado}" />
+		</p:column>
+
+		<p:column headerText="Tipo Usuario">
+			<h:outputText value="#{_usuario.tipoUsuario}" />
+		</p:column>
+
+		<p:column headerText="Pass">
+			<h:outputText value="#{_usuario.password}" />
+		</p:column>
+
+		<p:column headerText="Fecha Creacion">
+			<h:outputText value="#{_usuario.fechaCreacion}" />
+		</p:column>
+
+		<p:column headerText="Fecha Clave">
+			<h:outputText value = "#{_usuario.fechaClave}"/>
+		</p:column>
+		
+		<p:column headerText="Email">
+			<h:outputText value="#{_usuario.correo}" />	
+		</p:column>
+		<p:column headerText="Eliminar">
+			<p:commandLink value = "Eliminar" actionListener = "#{usuarioMB.eliminar(_usuario)}"/>	
+		</p:column>
+	</p:dataTable>
+
+</h:body>
+</html>
