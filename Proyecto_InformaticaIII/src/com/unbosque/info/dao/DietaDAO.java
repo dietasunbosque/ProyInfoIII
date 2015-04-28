@@ -20,7 +20,11 @@ public class DietaDAO {
 	public void setSessionFactory(SessionFactory sessionFactory) {
 		this.sessionFactory = sessionFactory;
 	}
-
+	
+	public void delDieta (Dieta dieta){
+		getSessionFactory().getCurrentSession().update(dieta);
+	}
+	
 	public void adDieta (Dieta dieta){
 		getSessionFactory().getCurrentSession().save(dieta);
 	}

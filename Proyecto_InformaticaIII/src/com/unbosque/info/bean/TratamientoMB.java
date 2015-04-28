@@ -57,15 +57,15 @@ public class TratamientoMB implements Serializable{
 	public List<Tratamiento> getTratamientos (){
 		tratamientoList = new ArrayList<Tratamiento>();
 		tratamientoList.addAll(getTratamientoService().getTratamientos());
-		for (int i = 0; i<tratamientoList.size();i++){
-			if(tratamientoList.get(i).getEstado().equals("A"))
-				tratamientoList.get(i).setEstado("Activo");
-			else
-				tratamientoList.get(i).setEstado("Inactivo");
-		}
+		
 		return tratamientoList;
 	}
-
+	
+	public void eliminarTratamiento (Tratamiento tr, String est){
+		tr.setEstado(est);
+		getTratamientoService().delTratamiento(tr);
+	}
+	
 	public TratamientoMB getRegistroSeleccionado() {
 		return registroSeleccionado;
 	}

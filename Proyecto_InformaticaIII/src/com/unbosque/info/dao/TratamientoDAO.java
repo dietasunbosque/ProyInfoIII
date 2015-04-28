@@ -22,6 +22,10 @@ public class TratamientoDAO {
 		this.sessionFactory = sessionFactory;
 	}
 	
+	public void deleteTratamiento (Tratamiento tr){
+		getSessionFactory().getCurrentSession().update(tr);
+	}
+	
 	public void addTratamiento(Tratamiento tratamiento) {
 		getSessionFactory().getCurrentSession().save(tratamiento);
 	}

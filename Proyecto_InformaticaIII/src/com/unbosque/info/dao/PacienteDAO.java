@@ -27,7 +27,6 @@ public class PacienteDAO {
 	}
 	
 	public void eliminarPaciente (Paciente paciente){
-		paciente.setEstado("I");
 		getSessionFactory().getCurrentSession().update(paciente);
 	}
 	

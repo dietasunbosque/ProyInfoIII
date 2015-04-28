@@ -18,10 +18,10 @@
 			<p:submenu label="Pacientes" icon="ui-icon-check">
 				<p:column>
 					<p:submenu label="Gestión de Pacientes">
-						<p:menuitem action="AgregarPaciente?faces-redirect=true" ajax="flase" value="Nuevo" />
-						<p:menuitem value="Modificar" />
-						<p:menuitem value="Eliminar" />
-						<p:menuitem action="VerPacientes?faces-redirect=true" ajax="flase" value="Ver" />
+						<p:menuitem action="AgregarPaciente?faces-redirect=true"
+							ajax="flase" value="Nuevo" />
+						<p:menuitem action="VerPacientes?faces-redirect=true" ajax="flase"
+							value="Ver" />
 					</p:submenu>
 				</p:column>
 			</p:submenu>
@@ -30,10 +30,12 @@
 
 				<p:column>
 					<p:submenu label="Gestión de Tratamientos">
-						<p:menuitem action="AgregarTratamiento?faces-redirect=true" ajax="flase" value="Nuevo"/>
-						<p:menuitem value="Modificar"/>
-						<p:menuitem value="Eliminar"/>
-						<p:menuitem action="VerTratamientos?faces-redirect=true" ajax="flase" value="Ver"/>
+						<p:menuitem action="AgregarTratamiento?faces-redirect=true"
+							ajax="flase" value="Nuevo" />
+						<p:menuitem value="Modificar" />
+						<p:menuitem value="Eliminar" />
+						<p:menuitem action="VerTratamientos?faces-redirect=true"
+							ajax="flase" value="Ver" />
 					</p:submenu>
 				</p:column>
 			</p:submenu>
@@ -42,10 +44,12 @@
 
 				<p:column>
 					<p:submenu label="Gestión de Enfermedades">
-						<p:menuitem action="AgregarEnfermedad?faces-redirect=true" ajax="flase" value="Nuevo"/>
-						<p:menuitem value="Modificar"/>
-						<p:menuitem value="Eliminar"/>
-						<p:menuitem action="VerEnfermedades?faces-redirect=true" ajax="flase" value="Ver"/>
+						<p:menuitem action="AgregarEnfermedad?faces-redirect=true"
+							ajax="flase" value="Nuevo" />
+						<p:menuitem value="Modificar" />
+						<p:menuitem value="Eliminar" />
+						<p:menuitem action="VerEnfermedades?faces-redirect=true"
+							ajax="flase" value="Ver" />
 					</p:submenu>
 				</p:column>
 			</p:submenu>
@@ -68,46 +72,68 @@
 				</p:column>
 			</p:submenu>
 
-			<p:menuitem action="index?faces-redirect=true" ajax="flase"  value="Salir"  icon="ui-icon-close"/>
+			<p:menuitem action="index?faces-redirect=true" ajax="flase"
+				value="Salir" icon="ui-icon-close" />
 
 		</p:megaMenu>
 	</h:form>
 
 	<!-- TABLA DE USUARIOS -->
-	<p:dataTable id="pacientes" var="_paciente"	height="10px" width="auto" value="#{pacienteMB.getPacientes()}"
-		style="width:auto" emptyMessage="No hay registros disponibles"
-		paginator="true" rows="10" paginatorPosition="top"
+	<p:dataTable id="pacientes" var="_paciente" height="10px" width="auto"
+		value="#{pacienteMB.getPacientes()}" style="width:auto"
+		emptyMessage="No hay registros disponibles" paginator="true" rows="10"
+		paginatorPosition="top"
 		paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
 		rowsPerPageTemplate="5,10,15">
 		<p:column width="15" headerText="Id">
 			<h:outputText value="#{_paciente.id}" />
 		</p:column>
 
-		<p:column width = "50" headerText="Identificacion">
+		<p:column width="150" headerText="Identificacion">
 			<h:outputText value="#{_paciente.identificacion}" />
 		</p:column>
 
-		<p:column width="50" headerText="Nombre">
+		<p:column width="200" headerText="Nombre">
 			<h:outputText value="#{_paciente.nombresApellidos}" />
 		</p:column>
 
-		<p:column width="50" headerText="Estado">
+		<p:column width="90" headerText="Estado">
 			<h:outputText value="#{_paciente.estado}" />
 		</p:column>
 
-		<p:column width="50" headerText="Teléfono">
+		<p:column width="100" headerText="Teléfono">
 			<h:outputText value="#{_paciente.telefono}" />
 		</p:column>
 
-		<p:column width="50" headerText="Correo">
+		<p:column width="200" headerText="Correo">
 			<h:outputText value="#{_paciente.correo}" />
 		</p:column>
 
-		<p:column width="50" headerText="Prog.Nutrición">
+		<p:column width="150" headerText="Prog.Nutrición">
 			<h:outputText value="#{_paciente.progNutricion}" />
 		</p:column>
-		<p:column headerText="Eliminar">
-			<p:commandLink value = "Eliminar" actionListener = "#{pacienteMB.eliminar(_paciente)}"/>	
+		<p:column headerText="Opciones">
+
+			<p:commandButton actionListener="#{pacienteMB.eliminar(_paciente,'I')}"
+				icon="ui-icon-trash" update="pacientes">
+				<p:confirm header="Confirmación de Cambio de estado"
+					message="¿Esta seguro que desea Inactivar el Paciente?"
+					icon="ui-icon-alert" />
+			</p:commandButton>
+
+			<p:commandButton actionListener="#{pacienteMB.eliminar(_paciente,'A')}"
+				icon="ui-icon-unlocked" update="pacientes">
+				<p:confirm header="Confirmación de Cambio de estado"
+					message="¿Esta seguro que desea Activar el Paciente?"
+					icon="ui-icon-alert" />
+			</p:commandButton>
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				<p:commandButton value="Si" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
 		</p:column>
 	</p:dataTable>
 

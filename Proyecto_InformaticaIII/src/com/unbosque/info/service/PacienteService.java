@@ -23,6 +23,7 @@ public class PacienteService {
 	public List<Paciente> getPacientes (){
 		return getPacienteDAO().getPacientes();
 	}
+	@Transactional(readOnly = false)
 	public void eliminarPaciente(Paciente paciente){
 		getPacienteDAO().eliminarPaciente(paciente);
 	}

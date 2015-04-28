@@ -20,6 +20,12 @@ public class TratamientoService {
 	public void addTratamiento(Tratamiento tratamiento) {
 		getTratamientoDAO().addTratamiento(tratamiento);
 	}
+	
+	@Transactional(readOnly = false)
+	public void delTratamiento(Tratamiento tratamiento) {
+		getTratamientoDAO().deleteTratamiento(tratamiento);
+	}
+	
 	public List<Tratamiento> getTratamientos (){
 		return getTratamientoDAO().getTratamientos();
 	}

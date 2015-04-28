@@ -20,6 +20,12 @@ public class DietaService {
 	public void addDieta (Dieta dieta){
 		getDietaDAO().adDieta(dieta);
 	}
+	
+	@Transactional(readOnly = false)
+	public void delDieta (Dieta dieta){
+		getDietaDAO().delDieta(dieta);
+	}
+	
 	public List<Dieta> getDietas (){
 		return getDietaDAO().getDietas();
 	}

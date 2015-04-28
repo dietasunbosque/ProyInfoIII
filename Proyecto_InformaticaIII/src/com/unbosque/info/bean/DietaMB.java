@@ -48,15 +48,14 @@ public class DietaMB implements Serializable{
 	public List<Dieta> getDietas (){
 		dietaList = new ArrayList<Dieta>();
 		dietaList.addAll(getDietaService().getDietas());
-		for (int i = 0; i<dietaList.size();i++){
-			if(dietaList.get(i).getEstado().equals("A"))
-				dietaList.get(i).setEstado("Activo");
-			else
-				dietaList.get(i).setEstado("Inactivo");
-	}
 		return dietaList;
 	}
-
+	
+	public void eliminarDieta (Dieta dieta, String estado){
+		dieta.setEstado(estado);
+		getDietaService().delDieta(dieta);
+	}
+	
 	public DietaService getDietaService() {
 		return dietaService;
 	}

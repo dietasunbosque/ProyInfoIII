@@ -18,7 +18,9 @@ import org.springframework.dao.DataAccessException;
 import com.unbosque.info.entidad.Mail;
 import com.unbosque.info.entidad.Usuario;
 import com.unbosque.info.service.UsuarioService;
+import com.unbosque.info.util.CifrarClave;
 import com.unbosque.info.util.Email;
+import com.unbosque.info.util.ValidarEmail;
 
 @ManagedBean(name = "usuarioMB")
 @SessionScoped
@@ -33,6 +35,7 @@ public class UsuarioMB implements Serializable {
 
 	List<Usuario> userList;
 	List<Usuario> userList2;
+
 	private Integer id;
 	private String login;
 	private String pass;
@@ -48,6 +51,8 @@ public class UsuarioMB implements Serializable {
 	private String usr;
 	private String cla;
 
+
+
 	public void addUser() throws EmailException {
 		try {
 
@@ -58,27 +63,41 @@ public class UsuarioMB implements Serializable {
 			fechaCreacion = new java.sql.Timestamp(today.getTime());
 			fechaClave = new java.sql.Timestamp(today.getTime());
 
-			user = new Usuario();
+			ValidarEmail validaEmail = new ValidarEmail ();
+			if(validaEmail.validate(correo)){
+				user = new Usuario();
 
-			user.setApellidosNombres(apellidosNombres);
-			user.setId(id);
-			user.setPassword(pass);
-			user.setLogin(login);
-			user.setFechaClave(fechaClave);
-			user.setFechaCreacion(fechaCreacion);
-			user.setCorreo(correo);
-			user.setTipoUsuario(tp);
-			user.setEstado("A");
-			enviarMail(login, pass, apellidosNombres, fechaCreacion,correo,tp);
-			getUsuarioService().addUsuario(user);
-			resetValues();
+				user.setApellidosNombres(apellidosNombres);
+				user.setId(id);
+				CifrarClave cifrado = new CifrarClave();
+				pass = cifrado.cifradoClave(pass);
+				user.setPassword(pass);
+				user.setLogin(login);
+				user.setFechaClave(fechaClave);
+				user.setFechaCreacion(fechaCreacion);
+				user.setCorreo(correo);
+				user.setTipoUsuario(tp);
+				user.setEstado("A");
+				enviarMail(login, pass, apellidosNombres, fechaCreacion,correo,tp);
+				getUsuarioService().addUsuario(user);
+				resetValues();
+				FacesContext.getCurrentInstance().addMessage(
+						null,
+						new FacesMessage(FacesMessage.SEVERITY_INFO,
+								"Agregado Exitosamente", "Agregado Exitosamente"));
+			}else{
+				FacesContext.getCurrentInstance().addMessage(
+						null,
+						new FacesMessage(FacesMessage.SEVERITY_INFO,
+								"Email Invalido", "Email Invalido"));
+			}
+		} catch (DataAccessException e) {
+			e.printStackTrace();
+		}catch (Exception e) {
 			FacesContext.getCurrentInstance().addMessage(
 					null,
 					new FacesMessage(FacesMessage.SEVERITY_INFO,
-							"Agregado Exitosamente", "Agregado Exitosamente"));
-
-		} catch (DataAccessException e) {
-			e.printStackTrace();
+							"Ya existe un usuario con ese login", "Ya existe un usuario con ese login"));
 		}
 	}
 
@@ -121,6 +140,8 @@ public class UsuarioMB implements Serializable {
 			Usuario log = getUsuarioService().getUserLogin(usr);
 
 			if(log.getEstado().equals("A")){
+				CifrarClave clave = new CifrarClave();
+				cla = clave.cifradoClave(cla);
 				if(log.getPassword().equals(cla)){
 					if(log.getTipoUsuario().equals("A")){
 						FacesContext.getCurrentInstance().getExternalContext()

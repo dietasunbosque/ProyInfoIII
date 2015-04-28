@@ -19,9 +19,6 @@
 				<p:column>
 					<p:submenu label="Gestión de Usuarios">
 						<p:menuitem action="AgregarUsuario?faces-redirect=true" ajax="flase" value="Nuevo" />
-						<p:menuitem action="ModificarUsuario?faces-redirect=true" ajax="flase" value="Modificar"/>
-						<p:menuitem action="EliminarUsuario?faces-redirect=true" ajax="flase" value="Eliminar"/>
-						<p:menuitem action="BuscarUsuario?faces-redirect=true" ajax="flase" value="Buscar"/>
 						<p:menuitem action="VerUsuarios?faces-redirect=true" ajax="flase" value="Ver"/>
 					</p:submenu>
 				</p:column>
@@ -31,10 +28,8 @@
 
 				<p:column>
 					<p:submenu label="Gestión de Dietas">
-						<p:menuitem value="Nuevo" url="#" />
-						<p:menuitem value="Modificar" url="#" />
-						<p:menuitem value="Eliminar" url="#" />
-						<p:menuitem value="Ver"  url="#" />
+						<p:menuitem value="Nuevo" action="AgregarDieta?faces-redirect=true" ajax="flase" />
+						<p:menuitem value="Ver"  action="VerDietas?faces-redirect=true" ajax="flase" />
 					</p:submenu>
 				</p:column>
 			</p:submenu>
@@ -68,6 +63,7 @@
 			style="width:600px;text-align:center; margin: 0 auto;">
 			<p:messages id="messages" />
 			<h:panelGrid columns="3" cellpadding="5px" style="text-align:left">
+				
 				<p:outputLabel for="txtNombre" value="Apellidos-Nombre:" />
 				<p:inputText id="txtNombre" required="true"
 					value="#{usuarioMB.apellidosNombres}"
@@ -76,6 +72,7 @@
 					<p:watermark value="Nombre(s)" for="txtNombre" />
 				</p:inputText>
 				<p:message for="txtNombre" />
+				
 				<p:outputLabel for="txtLogin" value="Usuario:" />
 				<p:inputText id="txtLogin" value="#{usuarioMB.login}"
 					required="true" requiredMessage="Ingrese Usuario de Istema"
@@ -84,13 +81,17 @@
 					<p:watermark value="Login" for="txtLogin" />
 				</p:inputText>
 				<p:message for="txtLogin" />
+				
 				<p:outputLabel for="txtPass" value="Contraseña:" />
-				<p:inputText id="txtPass" value="#{usuarioMB.pass}" required="true"
-					requiredMessage="Ingrese Contraseña" label="Contraseña">
+				<p:password id="txtPass" value="#{usuarioMB.pass}" required="true"
+					requiredMessage="Ingrese Contraseña" label="Contraseña" feedback="true"
+                    promptLabel="Ingrese Contraseña" weakLabel="Débil"
+                    goodLabel="Buena" strongLabel="Excelente">
 					<f:validateLength minimum="6" maximum = "60" />
 					<p:watermark value="Contraseña de Acceso" for="txtPass" />
-				</p:inputText>
+				</p:password>
 				<p:message for="txtPass" />
+				
 				<p:outputLabel for="txtEmail" value="Email:" />
 				<p:inputText id="txtEmail" value="#{usuarioMB.correo}"
 					required="true" requiredMessage="Ingrese Email" label="Email">
@@ -98,6 +99,7 @@
 					<p:watermark value="Correo Electrónico" for="txtEmail" />
 				</p:inputText>
 				<p:message for="txtEmail" />
+				
 				<h:panelGrid columns="2" style="margin-bottom:10px" cellpadding="5">
 					<p:outputLabel for="tp" value="Tipo de Usuario:" />
 					<p:selectOneRadio id="tp" value="#{usuarioMB.tp}">

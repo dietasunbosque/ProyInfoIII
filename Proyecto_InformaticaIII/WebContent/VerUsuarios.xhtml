@@ -20,10 +20,6 @@
 					<p:submenu label="Gestión de Usuarios">
 						<p:menuitem action="AgregarUsuario?faces-redirect=true"
 							ajax="flase" value="Nuevo" />
-						<p:menuitem action="ModificarUsuario?faces-redirect=true"
-							ajax="flase" value="Modificar" />
-						<p:menuitem action="EliminarUsuario?faces-redirect=true"
-							ajax="flase" value="Eliminar" />
 						<p:menuitem value="Ver" />
 					</p:submenu>
 				</p:column>
@@ -35,9 +31,7 @@
 					<p:submenu label="Gestión de Dietas">
 						<p:menuitem action="AgregarDieta?faces-redirect=true" ajax="flase"
 							value="Nuevo" />
-						<p:menuitem value="Modificar" url="#" />
-						<p:menuitem value="Eliminar" url="#" />
-						<p:menuitem value="Ver" url="#" />
+						<p:menuitem value="Ver" action="VerDietas?faces-redirect=true" ajax="flase"/>
 					</p:submenu>
 				</p:column>
 			</p:submenu>
@@ -105,21 +99,25 @@
 			<h:outputText value="#{_usuario.correo}" />
 		</p:column>
 		<p:column headerText="Opciones">
+			
 			<p:commandButton actionListener="#{usuarioMB.eliminar(_usuario,'I')}"
 				icon="ui-icon-trash" update="usuario">
 				<p:confirm header="Confirmación de Cambio de estado"
 					message="¿Esta seguro que desea Inactivar el Usuario?"
 					icon="ui-icon-alert" />
 			</p:commandButton>
+			
 			<p:commandButton actionListener="#{usuarioMB.eliminar(_usuario,'I')}"
 				icon="ui-icon-pencil" update="usuario">
 			</p:commandButton>
+			
 			<p:commandButton actionListener="#{usuarioMB.eliminar(_usuario,'A')}"
 				icon="ui-icon-unlocked" update="usuario">
 				<p:confirm header="Confirmación de Cambio de estado"
 					message="¿Esta seguro que desea Activar el Usuario?"
 					icon="ui-icon-alert" />
 			</p:commandButton>
+			
 			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
 				<p:commandButton value="Si" type="button"
 					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />

@@ -11,9 +11,9 @@ import com.unbosque.info.entidad.Mail;
 
 public class Email {
 	private static final String HOSTNAME = "smtp.gmail.com";
-	private static final String USERNAME = "nestor.bernal96";
-	private static final String PASSWORD = "CONTRASEÑA";
-	private static final String EMAILORIGEM = "nestor.bernal96@gmail.com";
+	private static final String USERNAME = "unbosque.dietas";
+	private static final String PASSWORD = "dietas123";
+	private static final String EMAILORIGEM = "unbosque.dietas@gmail.com";
 
 	public static SimpleEmail conectaEmail() throws EmailException {
 		SimpleEmail email = new SimpleEmail();

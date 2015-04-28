@@ -20,8 +20,6 @@
 					<p:submenu label="Gestión de Pacientes">
 						<p:menuitem action="AgregarPaciente?faces-redirect=true"
 							ajax="flase" value="Nuevo" />
-						<p:menuitem value="Modificar" />
-						<p:menuitem value="Eliminar" />
 						<p:menuitem action="VerPacientes?faces-redirect=true" ajax="flase"
 							value="Ver" />
 					</p:submenu>
@@ -34,8 +32,6 @@
 					<p:submenu label="Gestión de Tratamientos">
 						<p:menuitem action="AgregarTratamiento?faces-redirect=true"
 							ajax="flase" value="Nuevo" />
-						<p:menuitem value="Modificar" />
-						<p:menuitem value="Eliminar" />
 						<p:menuitem action="VerTratamientos?faces-redirect=true"
 							ajax="flase" value="Ver" />
 					</p:submenu>
@@ -84,16 +80,40 @@
 	<p:dataTable id="tratamientos" var="_tratamiento"
 		style="text-align:centre" height="10px" width="auto"
 		value="#{tratamientoMB.getTratamientos()}">
-		<p:column width="15" headerText="Id">
+		
+		<p:column width="25" headerText="Id">
 			<h:outputText value="#{_tratamiento.id}" />
 		</p:column>
 
-		<p:column width="80" headerText="Descripcion">
+		<p:column width="1024" headerText="Descripcion">
 			<h:outputText value="#{_tratamiento.descripcion}" />
 		</p:column>
 
-		<p:column width="50" headerText="Estado">
+		<p:column width="90" headerText="Estado">
 			<h:outputText value="#{_tratamiento.estado}" />
+		</p:column>
+		<p:column headerText="Opciones">
+
+			<p:commandButton actionListener="#{tratamientoMB.eliminar(_tratamiento,'I')}"
+				icon="ui-icon-trash" update="tratamientos">
+				<p:confirm header="Confirmación de Cambio de estado"
+					message="¿Esta seguro que desea Inactivar el Tratamiento?"
+					icon="ui-icon-alert" />
+			</p:commandButton>
+
+			<p:commandButton actionListener="#{tratamientoMB.eliminar(_tratamiento,'A')}"
+				icon="ui-icon-unlocked" update="tratamientos">
+				<p:confirm header="Confirmación de Cambio de estado"
+					message="¿Esta seguro que desea Activar el Tratamiento?"
+					icon="ui-icon-alert" />
+			</p:commandButton>
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+				<p:commandButton value="Si" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="No" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
 		</p:column>
 	</p:dataTable>
 
