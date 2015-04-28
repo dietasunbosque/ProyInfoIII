@@ -66,7 +66,7 @@ public class PacienteMB implements Serializable{
 			enviarMail(iden,nombresApellidos,telefono,correo,progNutricion);
 			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Agregado Exitosamente", "Agregado Exitosamente"));
 			}else{
-				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Error Verifique el Email", "Error Verifique el Email"));
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_FATAL, "Error Verifique el Email", "Error Verifique el Email"));
 			}
 
 		}catch(DataAccessException e){

@@ -32,6 +32,6 @@ public class Email {
 		email.setMsg(configuracionEnviar.getMensagem());
 		email.addTo(configuracionEnviar.getDestino());
 		String resposta = email.send();
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "E-mail enviado com sucesso para: " + configuracionEnviar.getDestino(), "Informação"));
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "E-mail enviado con exito para: " + configuracionEnviar.getDestino(), "Informação"));
 	}
 }

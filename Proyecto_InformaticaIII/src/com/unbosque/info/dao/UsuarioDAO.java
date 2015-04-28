@@ -46,7 +46,11 @@ public class UsuarioDAO {
 		.list();
 		return (Usuario) list.get(0);
 	}
-
+	
+	public void updateUser (Usuario user){
+		getSessionFactory().getCurrentSession().update(user);
+	}
+	
 	public void deleteUser (Usuario user){
 		getSessionFactory().getCurrentSession().update(user);
 	}

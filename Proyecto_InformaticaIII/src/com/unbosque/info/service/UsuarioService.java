@@ -29,6 +29,11 @@ public class UsuarioService{
 	}
 	
 	@Transactional(readOnly = false)
+	public void updateUser (Usuario user){
+		getUsuarioDAO().updateUser(user);
+	}
+	
+	@Transactional(readOnly = false)
 	public void deleteUser (Usuario user){
 		getUsuarioDAO().deleteUser(user);
 	}

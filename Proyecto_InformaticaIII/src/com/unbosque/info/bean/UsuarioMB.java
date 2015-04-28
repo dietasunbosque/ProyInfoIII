@@ -45,7 +45,9 @@ public class UsuarioMB implements Serializable {
 	private String estado;
 	private String correo;
 	private String tp;
+
 	private Usuario user;
+
 	private String del;
 
 	private String usr;
@@ -70,6 +72,7 @@ public class UsuarioMB implements Serializable {
 				user.setApellidosNombres(apellidosNombres);
 				user.setId(id);
 				CifrarClave cifrado = new CifrarClave();
+				String claS = pass;
 				pass = cifrado.cifradoClave(pass);
 				user.setPassword(pass);
 				user.setLogin(login);
@@ -78,7 +81,7 @@ public class UsuarioMB implements Serializable {
 				user.setCorreo(correo);
 				user.setTipoUsuario(tp);
 				user.setEstado("A");
-				enviarMail(login, pass, apellidosNombres, fechaCreacion,correo,tp);
+				enviarMail(login, claS, apellidosNombres, fechaCreacion,correo,tp);
 				getUsuarioService().addUsuario(user);
 				resetValues();
 				FacesContext.getCurrentInstance().addMessage(
@@ -88,7 +91,7 @@ public class UsuarioMB implements Serializable {
 			}else{
 				FacesContext.getCurrentInstance().addMessage(
 						null,
-						new FacesMessage(FacesMessage.SEVERITY_INFO,
+						new FacesMessage(FacesMessage.SEVERITY_FATAL,
 								"Email Invalido", "Email Invalido"));
 			}
 		} catch (DataAccessException e) {
@@ -108,6 +111,29 @@ public class UsuarioMB implements Serializable {
 		this.setLogin("");
 		this.setCorreo("");
 		this.setTp("");
+	}
+
+	public void modifUsuario (){
+		RequestContext context = RequestContext.getCurrentInstance();
+		if(apellidosNombres.equals("")){
+			user.setApellidosNombres(user.getApellidosNombres());
+		}else{
+			user.setApellidosNombres(apellidosNombres);
+		}
+		if(correo.equals("")){
+			user.setCorreo(user.getCorreo());
+		}else{
+			user.setCorreo(correo);
+		}
+		CifrarClave clave = new CifrarClave();
+		pass = clave.cifradoClave(pass);
+		if(pass.equals("")){
+			user.setPassword(user.getPassword());
+		}else{
+			user.setPassword(pass);
+		}
+		resetValues();
+		getUsuarioService().updateUser(user);
 	}
 
 	public Usuario deleteUser() {
@@ -193,6 +219,16 @@ public class UsuarioMB implements Serializable {
 		userList2 = new ArrayList<Usuario>();
 		userList2.addAll(getUsuarioService().getUsers());
 		return userList2;
+	}
+
+
+
+	public Usuario getUser() {
+		return user;
+	}
+
+	public void setUser(Usuario user) {
+		this.user = user;
 	}
 
 	public String getUsr() {
